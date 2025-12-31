@@ -5,7 +5,7 @@ import PaymentForm from "./PaymentForm";
 function App() {
   return (
     <div className="aaa">
-      <h1>FastAPI Payment Gateway</h1>
+      <h1>FastAPI Payment Gateway pay all</h1>
       <PaymentForm />
     </div>
   );
