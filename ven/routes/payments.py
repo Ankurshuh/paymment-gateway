@@ -3,12 +3,12 @@ from bson import ObjectId
 from datetime import datetime
 from pymongo import MongoClient
 from pydantic import BaseModel
-import razorpay
+
 
 
 router = APIRouter(prefix="/api/payments", tags=["Payments"])
 
-client = razorpay.Client(auth=("KEY_ID", "KEY_SECRET"))
+
 
 
 client = MongoClient("mongodb+srv://ankurshukla123:iZyUoUrhWsrgpAHh@cluster0.dt0junk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
