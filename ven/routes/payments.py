@@ -65,9 +65,3 @@ def get_payment(transaction_id: str):
         raise HTTPException(status_code=404, detail="Transaction not found")
     tx["_id"] = str(tx["_id"])
     return tx
-@router.get("/user/{user_id}")
-def get_payments_by_user(user_id: str):
-    user_transactions = list(transactions.find({"user_id": user_id}))
-    for tx in user_transactions:
-        tx["_id"] = str(tx["_id"])
-    return user_transactions
