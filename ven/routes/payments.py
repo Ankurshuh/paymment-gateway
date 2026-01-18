@@ -3,17 +3,25 @@ from bson import ObjectId
 from datetime import datetime
 from pymongo import MongoClient
 from pydantic import BaseModel
+import razorpay
 
+
+
+client = razorpay.Client(auth=("KEY_ID", "KEY_SECRET"))
 
 
 router = APIRouter(prefix="/api/payments", tags=["Payments"])
 
-
-
-
 client = MongoClient("mongodb+srv://ankurshukla123:iZyUoUrhWsrgpAHh@cluster0.dt0junk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client["payment_gateway"]
 transactions = db["ankur"]
+
+
+class CardSaveRequest(BaseModel):
+    user_id: str
+    card_id: str
+    last4: str
+    network: str
 
 class PaymentRequest(BaseModel):
     user_id: str 
@@ -29,6 +37,13 @@ class PaymentResponse(BaseModel):
 class OrderRequest(BaseModel):
     amount: int  
     currency: str = "INR"
+
+
+@router.post("/save")
+def save_card(card: CardSaveRequest):
+    transactions.insert_one(card.dict())
+    return {"message": "Card saved successfully"}
+    
 
 @router.post("/create-order")
 def create_order(order: OrderRequest):
